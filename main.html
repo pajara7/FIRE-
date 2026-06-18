@@ -528,19 +528,17 @@
             if(e.key === 'Enter') {
                 sendChatMessage();
             }
-        }
+        }// ავატარის ავტომატური დაყენება
+        const gender = localStorage.getItem('fire_gender');
+        const avatarElement = document.getElementById('profileGenderAvatar');
+        
+        console.log("ბრაუზერში შენახულია სქესი:", gender); 
 
-        // ავატარის ავტომატური დაყენება სქესის მიხედვით
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const gender = localStorage.getItem('fire_gender');
-            const avatarElement = document.getElementById('profileGenderAvatar');
-            
-            if (gender === "მდედრობითი") {
-                avatarElement.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
-            } else {
-                avatarElement.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix')";
-            }
-        });
+        if (gender && (gender === "მდედრობითი" || gender.includes("მდედრ"))) {
+            avatarElement.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
+        } else {
+            avatarElement.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix')";
+        }
     </script>
 </body>
 </html>
