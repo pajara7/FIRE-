@@ -1,20 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>რეგისტრაცია</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+        form { display: flex; flex-direction: column; gap: 10px; width: 300px; }
+    </style>
+</head>
 <body>
+
     <form id="regForm">
-        <input type="text" id="nickname" placeholder="მეტსახელი">
-        <select id="gender">
+        <h2>FIRE- რეგისტრაცია</h2>
+        <input type="text" id="nickname" placeholder="მეტსახელი" required>
+        
+        <select id="gender" required>
             <option value="მამრობითი">მამრობითი</option>
             <option value="მდედრობითი">მდედრობითი</option>
         </select>
+        
+        <label>
+            <input type="checkbox" id="rememberMe" checked> დამიმახსოვრე
+        </label>
+        
         <button type="submit">რეგისტრაცია</button>
     </form>
 
     <script>
         document.getElementById('regForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            localStorage.setItem('fire_nickname', document.getElementById('nickname').value);
-            localStorage.setItem('fire_gender', document.getElementById('gender').value);
+            
+            const nickname = document.getElementById('nickname').value;
+            const gender = document.getElementById('gender').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            if (rememberMe) {
+                localStorage.setItem('fire_nickname', nickname);
+                localStorage.setItem('fire_gender', gender);
+            }
+            
+            // გადამისამართება
             window.location.href = 'main.html';
         });
     </script>
