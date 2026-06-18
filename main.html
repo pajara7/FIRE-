@@ -165,13 +165,15 @@
         .post-avatar {
             width: 40px;
             height: 40px;
-            background-color: #ff6b81;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
+            font-size: 18px;
+            background-size: cover;
+            background-position: center;
         }
 
         .post-author { font-weight: bold; color: #2f3542; }
@@ -219,15 +221,16 @@
         .profile-main-avatar {
             width: 100px;
             height: 100px;
-            background: #ff4757;
-            color: white;
-            font-size: 36px;
-            font-weight: bold;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
+            background-size: cover;
+            background-position: center;
+            /* წაშალეთ ძველი ფერადი ფონი და ტექსტი */
+            color: transparent;
+            font-size: 0;
         }
 
         .profile-card input, .profile-card textarea {
@@ -354,7 +357,7 @@
             <div id="postsFeed" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
                 <div class="post-card">
                     <div class="post-header">
-                        <div class="post-avatar">ან</div>
+                        <div class="post-avatar" style="background-image: url('https://img.icons8.com/?size=100&id=23308&format=png&color=000000')"></div>
                         <div>
                             <div class="post-author">ანი</div>
                             <div class="post-time">10 წუთის წინ</div>
@@ -370,7 +373,7 @@
 
         <div id="profilePanel" class="content-panel">
             <div class="profile-card">
-                <div class="profile-main-avatar" id="profileLetter">U</div>
+                <div class="profile-main-avatar" id="profileGenderAvatar"></div>
                 <h2 id="profileNameDisplay">მომხმარებელი</h2>
                 <p style="color: #747d8c;">ჩემი პირადი მონაცემები</p>
                 
@@ -387,148 +390,4 @@
         <div class="right-sidebar">
             <div class="chat-header">💬 საერთო ჩათი</div>
             <div class="chat-messages" id="chatWindow">
-                <div class="msg incoming"><b>გიორგი:</b> ჰეი, ვინმე ხართ აქ?</div>
-                <div class="msg incoming"><b>ანი:</b> კიი, ახალი კედელი ძაან მაგარია! 😍</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="chatInput" placeholder="დაწერე შეტყობინება..." onkeypress="handleChatEnter(event)">
-                <button onclick="sendChatMessage()">></button>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        let currentUser = "მომხმარებელი";
-
-        // გვერდის ჩატვირთვისთანავე ამოვიღებთ რეგისტრაციის სახელს
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedNickname = localStorage.getItem('fire_nickname');
-            if (savedNickname) {
-                currentUser = savedNickname;
-                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + currentUser + '!';
-                document.getElementById('profileNameDisplay').innerText = currentUser;
-                document.getElementById('editNickname').value = currentUser;
-                document.getElementById('profileLetter').innerText = currentUser.substring(0, 2).toUpperCase();
-            }
-            
-            const savedBio = localStorage.getItem('fire_bio');
-            if (savedBio) {
-                document.getElementById('editBio').value = savedBio;
-            }
-        });
-
-        // ჩანართების გადართვა
-        function switchTab(tab, element) {
-            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active-panel'));
-            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-            
-            element.classList.add('active');
-            if(tab === 'feed') document.getElementById('feedPanel').classList.add('active-panel');
-            if(tab === 'profile') document.getElementById('profilePanel').classList.add('active-panel');
-        }
-
-        // ფაილის სახელის ჩვენება ატვირთვისას
-        function previewFileLabel(input) {
-            if(input.files && input.files[0]) {
-                document.getElementById('fileLabel').innerText = "✓ ფოტო არჩეულია";
-            }
-        }
-
-        // პოსტის დადება ფოტოთი და ლაიქით
-        function addPost() {
-            const postInput = document.getElementById('postInput');
-            const postText = postInput.value.trim();
-            const fileInput = document.getElementById('postImage');
-            
-            if (postText === "" && !fileInput.files[0]) {
-                alert("გთხოვთ ჩაწეროთ ტექსტი ან ატვირთოთ ფოტო!");
-                return;
-            }
-
-            const initials = currentUser.substring(0, 2).toUpperCase();
-            const feed = document.getElementById('postsFeed');
-            const newPost = document.createElement('div');
-            newPost.className = 'post-card';
-
-            let imgHtml = "";
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imgHtml = `<img src="${e.target.result}" class="post-img">`;
-                    buildPostStructure(newPost, initials, postText, imgHtml, feed);
-                }
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                buildPostStructure(newPost, initials, postText, imgHtml, feed);
-            }
-
-            postInput.value = "";
-            fileInput.value = "";
-            document.getElementById('fileLabel').innerText = "";
-        }
-
-        function buildPostStructure(postElement, initials, text, img, feedContainer) {
-            postElement.innerHTML = `
-                <div class="post-header">
-                    <div class="post-avatar">${initials}</div>
-                    <div>
-                        <div class="post-author">${currentUser}</div>
-                        <div class="post-time">ახლახან</div>
-                    </div>
-                </div>
-                <div class="post-content">${text}</div>
-                ${img}
-                <div class="like-section">
-                    <button class="like-btn" onclick="toggleLike(this)">❤️ ლაიქი (<span class="like-count">0</span>)</button>
-                </div>
-            `;
-            feedContainer.insertBefore(postElement, feedContainer.firstChild);
-        }
-
-        // ლაიქის ფუნქცია
-        function toggleLike(btn) {
-            const countSpan = btn.querySelector('.like-count');
-            let count = parseInt(countSpan.innerText);
-            
-            if(btn.classList.contains('liked')) {
-                btn.classList.remove('liked');
-                countSpan.innerText = count - 1;
-            } else {
-                btn.classList.add('liked');
-                countSpan.innerText = count + 1;
-            }
-        }
-
-        // მხოლოდ ბიოგრაფიის შენახვა
-        function saveProfile() {
-            const newBio = document.getElementById('editBio').value.trim();
-            localStorage.setItem('fire_bio', newBio);
-            alert("ბიოგრაფია წარმატებით განახლდა! ✨");
-        }
-
-        // ჩატის შეტყობინების გაგზავნა
-        function sendChatMessage() {
-            const chatInput = document.getElementById('chatInput');
-            const msgText = chatInput.value.trim();
-            
-            if(msgText === "") return;
-            
-            const chatWindow = document.getElementById('chatWindow');
-            const newMsg = document.createElement('div');
-            newMsg.className = 'msg outgoing';
-            newMsg.innerHTML = `<b>მე:</b> ${msgText}`;
-            
-            chatWindow.appendChild(newMsg);
-            chatInput.value = "";
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
-        function handleChatEnter(e) {
-            if(e.key === 'Enter') {
-                sendChatMessage();
-            }
-        }
-    </script>
-</body>
-</html>
+                <div class="msg incoming"><b>გიორგი:http://googleusercontent.com/image_generation_content/0
