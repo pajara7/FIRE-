@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIRE - კედელი</title>
+    <title>FIRE - პლატფორმა</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,7 +16,7 @@
             height: 100vh;
         }
 
-        /* ზედა ზოლი (Navbar) */
+        /* Navbar */
         .top-navbar {
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -43,7 +43,7 @@
             color: #2f3542;
         }
 
-        /* მთავარი სამუშაო სივრცე (Layout) */
+        /* Main Layout */
         .main-container {
             display: flex;
             margin-top: 55px;
@@ -51,7 +51,7 @@
             overflow: hidden;
         }
 
-        /* 1. მარცხენა მენიუ (Sidebar) */
+        /* 1. Sidebar */
         .sidebar {
             width: 250px;
             background-color: #fff;
@@ -72,29 +72,30 @@
             font-weight: 600;
             border-radius: 8px;
             transition: background 0.2s;
+            cursor: pointer;
         }
 
-        .sidebar-item:hover {
-            background-color: #f2f3f5;
-        }
-
-        .sidebar-item.active {
+        .sidebar-item:hover, .sidebar-item.active {
             background-color: #ffeef0;
             color: #ff4757;
         }
 
-        /* 2. შუა ნაწილი - კედელი (Feed) */
-        .feed-container {
+        /* Content Sections Toggle */
+        .content-panel {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
+            display: none;
+        }
+
+        .content-panel.active-panel {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
         }
 
-        /* პოსტის დასაწერი ყუთი */
+        /* 2. Feed Components */
         .create-post {
             background-color: #fff;
             border-radius: 10px;
@@ -117,6 +118,23 @@
             box-sizing: border-box;
         }
 
+        .post-actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .file-upload-btn {
+            background-color: #f1f2f6;
+            color: #57606f;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .create-post button {
             background-color: #ff4757;
             color: white;
@@ -125,16 +143,8 @@
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            float: right;
-            margin-top: 10px;
-            transition: background 0.2s;
         }
 
-        .create-post button:hover {
-            background-color: #e84118;
-        }
-
-        /* პოსტის ვიზუალი კედელზე */
         .post-card {
             background-color: #fff;
             border-radius: 10px;
@@ -164,59 +174,145 @@
             font-weight: bold;
         }
 
-        .post-author {
-            font-weight: bold;
-            color: #2f3542;
+        .post-author { font-weight: bold; color: #2f3542; }
+        .post-time { font-size: 12px; color: #747d8c; }
+        .post-content { font-size: 15px; line-height: 1.5; word-wrap: break-word; }
+        
+        .post-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
         }
 
-        .post-time {
-            font-size: 12px;
+        .like-section {
+            margin-top: 12px;
+            border-top: 1px solid #f1f2f6;
+            padding-top: 8px;
+        }
+
+        .like-btn {
+            background: none;
+            border: none;
             color: #747d8c;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .post-content {
-            font-size: 15px;
-            line-height: 1.5;
-            color: #1c1e21;
+        .like-btn.liked { color: #ff4757; }
+
+        /* Profile Styling */
+        .profile-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .profile-main-avatar {
+            width: 100px;
+            height: 100px;
+            background: #ff4757;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .profile-card input, .profile-card textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .profile-card button {
+            background: #2ed573;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 3. Right Sidebar (Chat Widget) */
+        .right-sidebar {
+            width: 320px;
+            background-color: #fff;
+            border-left: 1px solid #e4e6eb;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        @media (max-width: 1000px) { .right-sidebar { display: none; } }
+
+        .chat-header {
+            padding: 15px;
+            background: #ff4757;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f8f9fa;
+        }
+
+        .msg {
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 75%;
+            font-size: 14px;
             word-wrap: break-word;
         }
 
-        /* 3. მარჯვენა ბლოკი (Widgets/წევრები) */
-        .right-sidebar {
-            width: 280px;
-            background-color: #fff;
-            border-left: 1px solid #e4e6eb;
-            padding: 20px;
+        .msg.incoming { background: #e4e6eb; align-self: flex-start; }
+        .msg.outgoing { background: #ff4757; color: white; align-self: flex-end; }
+
+        .chat-input-area {
+            padding: 10px;
+            border-top: 1px solid #e4e6eb;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 8px;
         }
 
-        @media (max-width: 900px) {
-            .right-sidebar { display: none; }
+        .chat-input-area input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ced6e0;
+            border-radius: 20px;
+            outline: none;
         }
 
-        .widget-title {
-            font-size: 16px;
+        .chat-input-area button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
             font-weight: bold;
-            color: #747d8c;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #f1f2f6;
-            padding-bottom: 5px;
-        }
-
-        .online-user {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 5px 0;
-        }
-
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #2ed573;
-            border-radius: 50%;
         }
     </style>
 </head>
@@ -224,30 +320,30 @@
 
     <div class="top-navbar">
         <a href="#" class="logo">FIRE-</a>
-        <div class="user-greeting" id="userGreeting">გამარჯობა, სტუმარო!</div>
+        <div class="user-greeting" id="userGreeting">გამარჯობა!</div>
     </div>
 
     <div class="main-container">
 
         <div class="sidebar">
-            <a href="#" class="sidebar-item active">🏠 ჩემი კედელი</a>
-            <a href="#" class="sidebar-item">👤 ჩემი პროფილი</a>
-            <a href="#" class="sidebar-item">👥 ჩემი მეგობრები</a>
-            <a href="#" class="sidebar-item">💬 ჩემი ჩათები</a>
-            <a href="#" class="sidebar-item">🖼️ ჩემი სურათები</a>
-            <a href="#" class="sidebar-item">📊 გამოკითხვები</a>
-            <a href="#" class="sidebar-item">🎮 თამაშები</a>
+            <div class="sidebar-item active" onclick="switchTab('feed', this)">🏠 ჩემი კედელი</div>
+            <div class="sidebar-item" onclick="switchTab('profile', this)">👤 ჩემი პროფილი</div>
         </div>
 
-        <div class="feed-container">
-            
+        <div id="feedPanel" class="content-panel active-panel">
             <div class="create-post">
                 <textarea id="postInput" placeholder="რაზე ფიქრობთ ახლა?"></textarea>
-                <button onclick="addPost()">გამოქვეყნება</button>
+                <div class="post-actions-row">
+                    <label class="file-upload-btn">
+                        🖼️ ფოტოს დამატება
+                        <input type="file" id="postImage" accept="image/*" style="display: none;" onchange="previewFileLabel(this)">
+                    </label>
+                    <span id="fileLabel" style="font-size:12px; color:#747d8c;"></span>
+                    <button onclick="addPost()">გამოქვეყნება</button>
+                </div>
             </div>
 
             <div id="postsFeed" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                
                 <div class="post-card">
                     <div class="post-header">
                         <div class="post-avatar">ან</div>
@@ -257,61 +353,186 @@
                         </div>
                     </div>
                     <div class="post-content">მოგესალმებით ყველას ახალ პლატფორმაზე! 🔥 იმედია ბევრ მეგობარს შევიძენ აქ.</div>
+                    <div class="like-section">
+                        <button class="like-btn" onclick="toggleLike(this)">❤️ ლაიქი (<span class="like-count">3</span>)</button>
+                    </div>
                 </div>
-
             </div>
+        </div>
 
+        <div id="profilePanel" class="content-panel">
+            <div class="profile-card">
+                <div class="profile-main-avatar" id="profileLetter">U</div>
+                <h2 id="profileNameDisplay">მომხმარებელი</h2>
+                <p style="color: #747d8c;">ჩემი პირადი მონაცემები</p>
+                
+                <label style="text-align: left; display: block; font-weight: bold;">შეცვალე მეტსახელი:</label>
+                <input type="text" id="editNickname">
+                
+                <label style="text-align: left; display: block; font-weight: bold;">ჩემ შესახებ:</label>
+                <textarea id="editBio" placeholder="დაწერე რამე შენს შესახებ..."></textarea>
+                
+                <button onclick="saveProfile()">მონაცემების შენახვა</button>
+            </div>
         </div>
 
         <div class="right-sidebar">
-            <div>
-                <div class="widget-title">ონლაინ წევრები (3)</div>
-                <div class="online-user"><div class="online-dot"></div> გიორგი</div>
-                <div class="online-user"><div class="online-dot"></div> ანი</div>
-                <div class="online-user"><div class="online-dot"></div> ლუკა</div>
+            <div class="chat-header">💬 საერთო ჩათი</div>
+            <div class="chat-messages" id="chatWindow">
+                <div class="msg incoming"><b>გიორგი:</b> ჰეი, ვინმე ხართ აქ?</div>
+                <div class="msg incoming"><b>ანი:</b> კიი, ახალი კედელი ძაან მაგარია! 😍</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="დაწერე შეტყობინება..." onkeypress="handleChatEnter(event)">
+                <button onclick="sendChatMessage()">></button>
             </div>
         </div>
 
     </div>
 
     <script>
+        let currentUser = "მომხმარებელი";
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedNickname = localStorage.getItem('fire_nickname');
             if (savedNickname) {
-                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + savedNickname + '!';
+                currentUser = savedNickname;
+                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + currentUser + '!';
+                document.getElementById('profileNameDisplay').innerText = currentUser;
+                document.getElementById('editNickname').value = currentUser;
+                document.getElementById('profileLetter').innerText = currentUser.substring(0, 2).toUpperCase();
+            }
+            
+            const savedBio = localStorage.getItem('fire_bio');
+            if (savedBio) {
+                document.getElementById('editBio').value = savedBio;
             }
         });
 
+        // ჩანართების გადართვა
+        function switchTab(tab, element) {
+            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active-panel'));
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            
+            element.classList.add('active');
+            if(tab === 'feed') document.getElementById('feedPanel').classList.add('active-panel');
+            if(tab === 'profile') document.getElementById('profilePanel').classList.add('active-panel');
+        }
+
+        // ფაილის სახელის ჩვენება ატვირთვისას
+        function previewFileLabel(input) {
+            if(input.files && input.files[0]) {
+                document.getElementById('fileLabel').innerText = "✓ ფოტო არჩეულია";
+            }
+        }
+
+        // პოსტის დადება ფოტოთი და ლაიქით
         function addPost() {
             const postInput = document.getElementById('postInput');
             const postText = postInput.value.trim();
+            const fileInput = document.getElementById('postImage');
             
-            if (postText === "") {
-                alert("გთხოვთ ჩაწეროთ ტექსტი!");
+            if (postText === "" && !fileInput.files[0]) {
+                alert("გთხოვთ ჩაწეროთ ტექსტი ან ატვირთოთ ფოტო!");
                 return;
             }
 
-            const savedNickname = localStorage.getItem('fire_nickname') || 'მომხმარებელი';
-            const initials = savedNickname.substring(0, 2);
+            const initials = currentUser.substring(0, 2).toUpperCase();
             const feed = document.getElementById('postsFeed');
-
             const newPost = document.createElement('div');
             newPost.className = 'post-card';
-            newPost.innerHTML = `
+
+            let imgHtml = "";
+            // თუ ფოტოა არჩეული, გადავიყვანოთ Base64 ფორმატში საჩვენებლად
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imgHtml = `<img src="${e.target.result}" class="post-img">`;
+                    buildPostStructure(newPost, initials, postText, imgHtml, feed);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                buildPostStructure(newPost, initials, postText, imgHtml, feed);
+            }
+
+            // გასუფთავება
+            postInput.value = "";
+            fileInput.value = "";
+            document.getElementById('fileLabel').innerText = "";
+        }
+
+        function buildPostStructure(postElement, initials, text, img, feedContainer) {
+            postElement.innerHTML = `
                 <div class="post-header">
                     <div class="post-avatar">${initials}</div>
                     <div>
-                        <div class="post-author">${savedNickname}</div>
+                        <div class="post-author">${currentUser}</div>
                         <div class="post-time">ახლახან</div>
                     </div>
                 </div>
-                <div class="post-content">${postText}</div>
+                <div class="post-content">${text}</div>
+                ${img}
+                <div class="like-section">
+                    <button class="like-btn" onclick="toggleLike(this)">❤️ ლაიქი (<span class="like-count">0</span>)</button>
+                </div>
             `;
+            feedContainer.insertBefore(postElement, feedContainer.firstChild);
+        }
 
-            feed.insertBefore(newPost, feed.firstChild);
-            postInput.value = "";
+        // ლაიქის ფუნქცია
+        function toggleLike(btn) {
+            const countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            
+            if(btn.classList.contains('liked')) {
+                btn.classList.remove('liked');
+                countSpan.innerText = count - 1;
+            } else {
+                btn.classList.add('liked');
+                countSpan.innerText = count + 1;
+            }
+        }
+
+        // პროფილის შენახვა
+        function saveProfile() {
+            const newName = document.getElementById('editNickname').value.trim();
+            const newBio = document.getElementById('editBio').value.trim();
+            
+            if(newName !== "") {
+                currentUser = newName;
+                localStorage.setItem('fire_nickname', newName);
+                localStorage.setItem('fire_bio', newBio);
+                
+                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + currentUser + '!';
+                document.getElementById('profileNameDisplay').innerText = currentUser;
+                document.getElementById('profileLetter').innerText = currentUser.substring(0, 2).toUpperCase();
+                
+                alert("მონაცემები წარმატებით განახლდა! ✨");
+            }
+        }
+
+        // ჩატის შეტყობინების გაგზავნა
+        function sendChatMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const msgText = chatInput.value.trim();
+            
+            if(msgText === "") return;
+            
+            const chatWindow = document.getElementById('chatWindow');
+            const newMsg = document.createElement('div');
+            newMsg.className = 'msg outgoing';
+            newMsg.innerHTML = `<b>მე:</b> ${msgText}`;
+            
+            chatWindow.appendChild(newMsg);
+            chatInput.value = "";
+            chatWindow.scrollTop = chatWindow.scrollHeight; // სქროლი ბოლოში
+        }
+
+        function handleChatEnter(e) {
+            if(e.key === 'Enter') {
+                sendChatMessage();
+            }
         }
     </script>
-
 </body>
 </html>
