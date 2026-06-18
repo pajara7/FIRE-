@@ -523,20 +523,24 @@
             chatWindow.appendChild(newMsg);
             chatInput.value = "";
             chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
-        function handleChatEnter(e) {
+            }
+        }function handleChatEnter(e) {
             if(e.key === 'Enter') {
                 sendChatMessage();
             }
-        }// ამოწმებს რეგისტრაციის სქესს და სვამს შესაბამის ავატარს
-        const currentGender = localStorage.getItem('fire_gender');
-        if (currentGender === "მდედრობითი") {
-            userAvatar = "https://api.dicebear.com/7.x/adventurer/svg?seed=Ane";
-        } else {
-            userAvatar = "https://api.dicebear.com/7.x/adventurer/svg?seed=Felix";
         }
-        document.getElementById('profileGenderAvatar').style.backgroundImage = "url('" + userAvatar + "')";
+
+        // ავატარის ავტომატური დაყენება სქესის მიხედვით
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const gender = localStorage.getItem('fire_gender');
+            const avatarElement = document.getElementById('profileGenderAvatar');
+            
+            if (gender === "მდედრობითი") {
+                avatarElement.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
+            } else {
+                avatarElement.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix')";
+            }
+        });
     </script>
 </body>
 </html>
