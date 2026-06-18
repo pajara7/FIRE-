@@ -529,7 +529,11 @@
             if(e.key === 'Enter') {
                 sendChatMessage();
             }
-        }
+        }// იძულებითი გადაწერა ახალ ლამაზ ილუსტრაციებზე
+userAvatar = (localStorage.getItem('fire_gender') === "მდედრობითი") 
+    ? "https://api.dicebear.com/7.x/adventurer/svg?seed=Ane" 
+    : "https://api.dicebear.com/7.x/adventurer/svg?seed=Felix";
+document.getElementById('profileGenderAvatar').style.backgroundImage = `url('${userAvatar}')`;
     </script>
 </body>
 </html>
