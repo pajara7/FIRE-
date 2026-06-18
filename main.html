@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE - კედელი</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* ზედა ზოლი (Navbar) */
+        .top-navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .top-navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff4757;
+            text-decoration: none;
+        }
+
+        .user-greeting {
+            font-weight: 600;
+            color: #2f3542;
+        }
+
+        /* მთავარი სამუშაო სივრცე (Layout) */
+        .main-container {
+            display: flex;
+            margin-top: 55px;
+            height: calc(100vh - 55px);
+            overflow: hidden;
+        }
+
+        /* 1. მარცხენა მენიუ (Sidebar) */
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            border-right: 1px solid #e4e6eb;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #1c1e21;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .sidebar-item:hover {
+            background-color: #f2f3f5;
+        }
+
+        .sidebar-item.active {
+            background-color: #ffeef0;
+            color: #ff4757;
+        }
+
+        /* 2. შუა ნაწილი - კედელი (Feed) */
+        .feed-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* პოსტის დასაწერი ყუთი */
+        .create-post {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
+        }
+
+        .create-post textarea {
+            width: 100%;
+            height: 70px;
+            border: 1px solid #ced6e0;
+            border-radius: 8px;
+            padding: 10px;
+            resize: none;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .create-post button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            float: right;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .create-post button:hover {
+            background-color: #e84118;
+        }
+
+        /* პოსტის ვიზუალი კედელზე */
+        .post-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            background
