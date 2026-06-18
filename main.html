@@ -529,20 +529,20 @@
                 sendChatMessage();
             }
         }
-        // ავატარის სისტემა
+// ავატარის სისტემა
     window.addEventListener('DOMContentLoaded', () => {
         const gender = localStorage.getItem('fire_gender');
         const avatar = document.getElementById('profileGenderAvatar');
         
         if (avatar) {
-            // თუ სქესი შეიცავს სიტყვას "მამრობითი", დააყენე ნაცრისფერი კაცი
-            if (gender && gender.includes('მამრობითი')) {
+            // ვამოწმებთ: თუ "მამრობითი" არ არის, ვცდით სხვა ვარიანტს
+            if (gender && (gender.includes("მამრ") || gender === "მამრობითი")) {
                 avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix&grayscale=true')";
             } else {
-                // წინააღმდეგ შემთხვევაში დააყენე ქალის ავატარი
                 avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
             }
         }
+    });
     });
 </script>
 </body>
