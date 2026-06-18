@@ -27,7 +27,7 @@
         header .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #ff4757; /* ცეცხლისფერი/წითელი აქცენტი */
+            color: #ff4757;
             text-decoration: none;
         }
 
@@ -85,24 +85,113 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
-        /* საინფორმაციო ბლოკები */
-        .features {
+        /* მომხმარებლების ბარათების სექცია */
+        .profiles-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .profiles-section h2 {
+            font-size: 32px;
+            color: #2f3542;
+            margin-bottom: 40px;
+        }
+
+        .profiles-container {
             display: flex;
-            justify-content: space-around;
-            padding: 50px 20px;
-            background-color: white;
+            justify-content: center;
+            gap: 30px;
             flex-wrap: wrap;
         }
 
-        .feature-box {
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            width: 250px;
             text-align: center;
-            max-width: 300px;
-            margin: 20px;
+            transition: transform 0.3s;
         }
 
-        .feature-box h3 {
-            color: #ff4757;
-            font-size: 22px;
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .profile-card h3 {
+            margin: 10px 0 5px 0;
+            color: #2f3542;
+        }
+
+        .profile-card p {
+            color: #747d8c;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .connect-btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .connect-btn:hover {
+            background-color: #e84118;
+        }
+
+        /* რეგისტრაციის ფორმის სექცია */
+        .register-section {
+            background-color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .register-form {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .register-form input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .register-form button {
+            background-color: #2ed573;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .register-form button:hover {
+            background-color: #26af5f;
         }
     </style>
 </head>
@@ -112,30 +201,53 @@
         <a href="#" class="logo">FIRE-</a>
         <nav>
             <a href="#">მთავარი</a>
-            <a href="#">მეგობრების ძებნა</a>
-            <a href="#">ჩვენს შესახებ</a>
+            <a href="#profiles">მეგობრები</a>
+            <a href="#register">რეგისტრაცია</a>
         </nav>
     </header>
 
     <section class="hero">
         <h1>გაიცანი და შეიძინე ახალი მეგობრები</h1>
         <p>აღმოაჩინე ადამიანები სხვადასხვა ინტერესებითა და მიზნებით შენს გარშემო.</p>
-        <a href="#" class="btn">დაიწყე ახლავე</a>
+        <a href="#register" class="btn">დაიწყე ახლავე</a>
     </section>
 
-    <section class="features">
-        <div class="feature-box">
-            <h3>მარტივი ძებნა</h3>
-            <p>იპოვნე ადამიანები საერთო ჰობისა და ინტერესების მიხედვით.</p>
+    <section class="profiles-section" id="profiles">
+        <h2>აქტიური წევრები</h2>
+        <div class="profiles-container">
+            
+            <div class="profile-card">
+                <div class="avatar">🙋‍♂️</div>
+                <h3>გიორგი, 21</h3>
+                <p>ინტერესები: ფეხბურთი, გეიმინგი, როკი</p>
+                <button class="connect-btn">მიწერე</button>
+            </div>
+
+            <div class="profile-card">
+                <div class="avatar">🙋‍♀️</div>
+                <h3>ანი, 19</h3>
+                <p>ინტერესები: წიგნები, მოგზაურობა, ხელოვნება</p>
+                <button class="connect-btn">მიწერე</button>
+            </div>
+
+            <div class="profile-card">
+                <div class="avatar">👨‍💻</div>
+                <h3>ლუკა, 23</h3>
+                <p>ინტერესები: პროგრამირება, ფილმები, ტექნოლოგიები</p>
+                <button class="connect-btn">მიწერე</button>
+            </div>
+
         </div>
-        <div class="feature-box">
-            <h3>უსაფრთხოება</h3>
-            <p>ჩვენ ვზრუნავთ შენს კონფიდენციალურობასა და უსაფრთხო კომუნიკაციაზე.</p>
-        </div>
-        <div class="feature-box">
-            <h3>ცოცხალი ჩათი</h3>
-            <p>ეკონტაქტე ახალ მეგობრებს რეალურ დროში, შეფერხებების გარეშე.</p>
-        </div>
+    </section>
+
+    <section class="register-section" id="register">
+        <h2>შემოუერთდი FIRE-ს</h2>
+        <form class="register-form" onsubmit="event.preventDefault(); alert('მადლობა რეგისტრაციისთვის!');">
+            <input type="text" placeholder="სახელი" required>
+            <input type="email" placeholder="ელ-ფოსტა" required>
+            <input type="password" placeholder="პაროლი" required>
+            <button type="submit">შექმენი პროფილი</button>
+        </form>
     </section>
 
 </body>
