@@ -529,11 +529,14 @@
             if(e.key === 'Enter') {
                 sendChatMessage();
             }
-        }// იძულებითი გადაწერა ახალ ლამაზ ილუსტრაციებზე
-userAvatar = (localStorage.getItem('fire_gender') === "მდედრობითი") 
-    ? "https://api.dicebear.com/7.x/adventurer/svg?seed=Ane" 
-    : "https://api.dicebear.com/7.x/adventurer/svg?seed=Felix";
-document.getElementById('profileGenderAvatar').style.backgroundImage = `url('${userAvatar}')`;
+        }// ამოწმებს რეგისტრაციის სქესს და სვამს შესაბამის ავატარს
+        const currentGender = localStorage.getItem('fire_gender');
+        if (currentGender === "მდედრობითი") {
+            userAvatar = "https://api.dicebear.com/7.x/adventurer/svg?seed=Ane";
+        } else {
+            userAvatar = "https://api.dicebear.com/7.x/adventurer/svg?seed=Felix";
+        }
+        document.getElementById('profileGenderAvatar').style.backgroundImage = "url('" + userAvatar + "')";
     </script>
 </body>
 </html>
