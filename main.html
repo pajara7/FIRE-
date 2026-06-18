@@ -529,21 +529,18 @@
                 sendChatMessage();
             }
         }
-
-        // ავატარის სუფთა და უშეცდომო კოდი
         window.addEventListener('DOMContentLoaded', () => {
             const gender = localStorage.getItem('fire_gender');
             const avatar = document.getElementById('profileGenderAvatar');
-            
+
             if (avatar) {
-                if (gender && gender.includes("მდედრ")) {
-                    avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
+                if (gender === "მამრობითი") {
+                    avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix&grayscale=true')";
                 } else {
-                    avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix')";
+                    avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
                 }
             }
         });
     </script>
 </body>
 </html>
-        
