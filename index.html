@@ -1,10 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="ka">
 <head>
-    <title>FIRE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE - იპოვნე ახალი მეგობრები</title>
+    <style>
+        /* ძირითადი სტილები გვერდისთვის */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* ნავიგაციის მენიუ (Header) */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4757; /* ცეცხლისფერი/წითელი აქცენტი */
+            text-decoration: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            margin-left: 20px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff4757;
+        }
+
+        /* მთავარი მისასალმებელი სექცია (Hero Section) */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* ღილაკის სტილი */
+        .btn {
+            background-color: white;
+            color: #ff4757;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* საინფორმაციო ბლოკები */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px 20px;
+            background-color: white;
+            flex-wrap: wrap;
+        }
+
+        .feature-box {
+            text-align: center;
+            max-width: 300px;
+            margin: 20px;
+        }
+
+        .feature-box h3 {
+            color: #ff4757;
+            font-size: 22px;
+        }
+    </style>
 </head>
 <body>
-    <h1>გამარჯობა!</h1>
-    <p>ეს ჩემი პირველი საიტია.</p>
+
+    <header>
+        <a href="#" class="logo">FIRE-</a>
+        <nav>
+            <a href="#">მთავარი</a>
+            <a href="#">მეგობრების ძებნა</a>
+            <a href="#">ჩვენს შესახებ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>გაიცანი და შეიძინე ახალი მეგობრები</h1>
+        <p>აღმოაჩინე ადამიანები სხვადასხვა ინტერესებითა და მიზნებით შენს გარშემო.</p>
+        <a href="#" class="btn">დაიწყე ახლავე</a>
+    </section>
+
+    <section class="features">
+        <div class="feature-box">
+            <h3>მარტივი ძებნა</h3>
+            <p>იპოვნე ადამიანები საერთო ჰობისა და ინტერესების მიხედვით.</p>
+        </div>
+        <div class="feature-box">
+            <h3>უსაფრთხოება</h3>
+            <p>ჩვენ ვზრუნავთ შენს კონფიდენციალურობასა და უსაფრთხო კომუნიკაციაზე.</p>
+        </div>
+        <div class="feature-box">
+            <h3>ცოცხალი ჩათი</h3>
+            <p>ეკონტაქტე ახალ მეგობრებს რეალურ დროში, შეფერხებების გარეშე.</p>
+        </div>
+    </section>
+
 </body>
 </html>
