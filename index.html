@@ -50,7 +50,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
             background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
             color: white;
         }
@@ -67,131 +67,127 @@
             opacity: 0.9;
         }
 
-        /* ღილაკის სტილი */
-        .btn {
-            background-color: white;
-            color: #ff4757;
-            padding: 12px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
-        /* მომხმარებლების ბარათების სექცია */
-        .profiles-section {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .profiles-section h2 {
-            font-size: 32px;
-            color: #2f3542;
-            margin-bottom: 40px;
-        }
-
-        .profiles-container {
+        /* საინფორმაციო ბლოკები */
+        .features {
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            justify-content: space-around;
+            padding: 40px 20px;
+            background-color: white;
             flex-wrap: wrap;
         }
 
-        .profile-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            padding: 30px;
-            width: 250px;
+        .feature-box {
             text-align: center;
-            transition: transform 0.3s;
+            max-width: 300px;
+            margin: 10px;
         }
 
-        .profile-card:hover {
-            transform: translateY(-5px);
+        .feature-box h3 {
+            color: #ff4757;
+            font-size: 22px;
+            margin-bottom: 10px;
         }
 
-        .avatar {
-            width: 100px;
-            height: 100px;
-            background-color: #ddd;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-        }
-
-        .profile-card h3 {
-            margin: 10px 0 5px 0;
-            color: #2f3542;
-        }
-
-        .profile-card p {
-            color: #747d8c;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .connect-btn {
-            background-color: #ff4757;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        .connect-btn:hover {
-            background-color: #e84118;
-        }
-
-        /* რეგისტრაციის ფორმის სექცია */
+        /* რეგისტრაციის ფორმის სექცია (კონტეინერი) */
         .register-section {
-            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 60px 20px;
+            background-color: #f4f7f6;
+        }
+
+        .register-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
 
+        .register-card h2 {
+            margin-bottom: 10px;
+            color: #2f3542;
+            font-size: 28px;
+        }
+
+        .register-card p {
+            color: #747d8c;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        /* ფორმის ელემენტების სტილები */
         .register-form {
-            max-width: 400px;
-            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
+            text-align: left;
         }
 
-        .register-form input {
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #57606f;
+            font-size: 14px;
+        }
+
+        .register-form input, .register-form select {
             padding: 12px;
-            border: 1px solid #ccc;
+            border: 1px solid #ced6e0;
             border-radius: 8px;
             font-size: 16px;
+            background-color: #f8f9fa;
+            outline: none;
+            transition: border-color 0.2s;
         }
 
-        .register-form button {
-            background-color: #2ed573;
+        .register-form input:focus, .register-form select:focus {
+            border-color: #ff4757;
+        }
+
+        /* დამიმახსოვრე გრაფა */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #57606f;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember-me input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* რეგისტრაციის ღილაკი */
+        .register-btn {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 5px;
         }
 
-        .register-form button:hover {
-            background-color: #26af5f;
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 71, 87, 0.4);
         }
     </style>
 </head>
@@ -201,54 +197,113 @@
         <a href="#" class="logo">FIRE-</a>
         <nav>
             <a href="#">მთავარი</a>
-            <a href="#profiles">მეგობრები</a>
-            <a href="#register">რეგისტრაცია</a>
+            <a href="#">მეგობრების ძებნა</a>
+            <a href="#register-form-section">რეგისტრაცია</a>
         </nav>
     </header>
 
     <section class="hero">
         <h1>გაიცანი და შეიძინე ახალი მეგობრები</h1>
         <p>აღმოაჩინე ადამიანები სხვადასხვა ინტერესებითა და მიზნებით შენს გარშემო.</p>
-        <a href="#register" class="btn">დაიწყე ახლავე</a>
     </section>
 
-    <section class="profiles-section" id="profiles">
-        <h2>აქტიური წევრები</h2>
-        <div class="profiles-container">
-            
-            <div class="profile-card">
-                <div class="avatar">🙋‍♂️</div>
-                <h3>გიორგი, 21</h3>
-                <p>ინტერესები: ფეხბურთი, გეიმინგი, როკი</p>
-                <button class="connect-btn">მიწერე</button>
-            </div>
-
-            <div class="profile-card">
-                <div class="avatar">🙋‍♀️</div>
-                <h3>ანი, 19</h3>
-                <p>ინტერესები: წიგნები, მოგზაურობა, ხელოვნება</p>
-                <button class="connect-btn">მიწერე</button>
-            </div>
-
-            <div class="profile-card">
-                <div class="avatar">👨‍💻</div>
-                <h3>ლუკა, 23</h3>
-                <p>ინტერესები: პროგრამირება, ფილმები, ტექნოლოგიები</p>
-                <button class="connect-btn">მიწერე</button>
-            </div>
-
+    <section class="features">
+        <div class="feature-box">
+            <h3>მარტივი ძებნა</h3>
+            <p>იპოვნე ადამიანები საერთო ჰობისა და ინტერესების მიხედვით.</p>
+        </div>
+        <div class="feature-box">
+            <h3>უსაფრთხოება</h3>
+            <p>ჩვენ ვზრუნავთ შენს კონფიდენციალურობასა და უსაფრთხო კომუნიკაციაზე.</p>
+        </div>
+        <div class="feature-box">
+            <h3>ცოცხალი ჩათი</h3>
+            <p>ეკონტაქტე ახალ მეგობრებს რეალურ დროში, შეფერხებების გარეშე.</p>
         </div>
     </section>
 
-    <section class="register-section" id="register">
-        <h2>შემოუერთდი FIRE-ს</h2>
-        <form class="register-form" onsubmit="event.preventDefault(); alert('მადლობა რეგისტრაციისთვის!');">
-            <input type="text" placeholder="სახელი" required>
-            <input type="email" placeholder="ელ-ფოსტა" required>
-            <input type="password" placeholder="პაროლი" required>
-            <button type="submit">შექმენი პროფილი</button>
-        </form>
+    <section class="register-section" id="register-form-section">
+        <div class="register-card">
+            <h2>შექმენი პროფილი</h2>
+            <p>შეავსე მონაცემები და იპოვნე ახალი მეგობრები</p>
+            
+            <form class="register-form" id="signupForm">
+                
+                <div class="form-group">
+                    <label for="nickname">მეტსახელი (Nickname)</label>
+                    <input type="text" id="nickname" placeholder="ჩაწერე მეტსახელი..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthdate">დაბადების დღე, თვე და წელი</label>
+                    <input type="date" id="birthdate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">სქესი</label>
+                    <select id="gender" required>
+                        <option value="" disabled selected>აირჩიე სქესი</option>
+                        <option value="male">მამრობითი</option>
+                        <option value="female">მდედრობითი</option>
+                        <option value="other">სხვა</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">პაროლი (მინიმუმ 8 სიმბოლო)</label>
+                    <input type="password" id="password" placeholder="მინიმუმ 8 ციფრი ან ასო..." minlength="8" required>
+                </div>
+
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    დამიმახსოვრე
+                </label>
+
+                <button type="submit" class="register-btn">რეგისტრაცია</button>
+            </form>
+        </div>
     </section>
+
+    <script>
+        const form = document.getElementById('signupForm');
+        const nicknameInput = document.getElementById('nickname');
+        const birthdateInput = document.getElementById('birthdate');
+        const genderInput = document.getElementById('gender');
+        const rememberMeCheckbox = document.getElementById('rememberMe');
+
+        // როცა გვერდი იტვირთება, ვამოწმებთ არის თუ არა შენახული მონაცემები
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedNickname = localStorage.getItem('fire_nickname');
+            const savedBirthdate = localStorage.getItem('fire_birthdate');
+            const savedGender = localStorage.getItem('fire_gender');
+
+            if (savedNickname && savedBirthdate && savedGender) {
+                nicknameInput.value = savedNickname;
+                birthdateInput.value = savedBirthdate;
+                genderInput.value = savedGender;
+                rememberMeCheckbox.checked = true;
+            }
+        });
+
+        // ფორმის გაგზავნისას (ღილაკზე დაჭერისას)
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // გვერდის გადატვირთვის თავიდან აცილება
+
+            if (rememberMeCheckbox.checked) {
+                // მონაცემების შენახვა ბრაუზერში
+                localStorage.setItem('fire_nickname', nicknameInput.value);
+                localStorage.setItem('fire_birthdate', birthdateInput.value);
+                localStorage.setItem('fire_gender', genderInput.value);
+            } else {
+                // თუ მონიშნული არ არის, ვშლით ძველ შენახულებს
+                localStorage.removeItem('fire_nickname');
+                localStorage.removeItem('fire_birthdate');
+                localStorage.removeItem('fire_gender');
+            }
+
+            alert('რეგისტრაცია წარმატებით დასრულდა! მონაცემები დამახსოვრებულია.');
+        });
+    </script>
 
 </body>
 </html>
