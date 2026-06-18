@@ -155,4 +155,163 @@
         .post-avatar {
             width: 40px;
             height: 40px;
-            background
+            background-color: #ff6b81;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .post-author {
+            font-weight: bold;
+            color: #2f3542;
+        }
+
+        .post-time {
+            font-size: 12px;
+            color: #747d8c;
+        }
+
+        .post-content {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #1c1e21;
+            word-wrap: break-word;
+        }
+
+        /* 3. მარჯვენა ბლოკი (Widgets/წევრები) */
+        .right-sidebar {
+            width: 280px;
+            background-color: #fff;
+            border-left: 1px solid #e4e6eb;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .right-sidebar { display: none; }
+        }
+
+        .widget-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #747d8c;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #f1f2f6;
+            padding-bottom: 5px;
+        }
+
+        .online-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 0;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #2ed573;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-navbar">
+        <a href="#" class="logo">FIRE-</a>
+        <div class="user-greeting" id="userGreeting">გამარჯობა, სტუმარო!</div>
+    </div>
+
+    <div class="main-container">
+
+        <div class="sidebar">
+            <a href="#" class="sidebar-item active">🏠 ჩემი კედელი</a>
+            <a href="#" class="sidebar-item">👤 ჩემი პროფილი</a>
+            <a href="#" class="sidebar-item">👥 ჩემი მეგობრები</a>
+            <a href="#" class="sidebar-item">💬 ჩემი ჩათები</a>
+            <a href="#" class="sidebar-item">🖼️ ჩემი სურათები</a>
+            <a href="#" class="sidebar-item">📊 გამოკითხვები</a>
+            <a href="#" class="sidebar-item">🎮 თამაშები</a>
+        </div>
+
+        <div class="feed-container">
+            
+            <div class="create-post">
+                <textarea id="postInput" placeholder="რაზე ფიქრობთ ახლა?"></textarea>
+                <button onclick="addPost()">გამოქვეყნება</button>
+            </div>
+
+            <div id="postsFeed" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-avatar">ან</div>
+                        <div>
+                            <div class="post-author">ანი</div>
+                            <div class="post-time">10 წუთის წინ</div>
+                        </div>
+                    </div>
+                    <div class="post-content">მოგესალმებით ყველას ახალ პლატფორმაზე! 🔥 იმედია ბევრ მეგობარს შევიძენ აქ.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="right-sidebar">
+            <div>
+                <div class="widget-title">ონლაინ წევრები (3)</div>
+                <div class="online-user"><div class="online-dot"></div> გიორგი</div>
+                <div class="online-user"><div class="online-dot"></div> ანი</div>
+                <div class="online-user"><div class="online-dot"></div> ლუკა</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedNickname = localStorage.getItem('fire_nickname');
+            if (savedNickname) {
+                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + savedNickname + '!';
+            }
+        });
+
+        function addPost() {
+            const postInput = document.getElementById('postInput');
+            const postText = postInput.value.trim();
+            
+            if (postText === "") {
+                alert("გთხოვთ ჩაწეროთ ტექსტი!");
+                return;
+            }
+
+            const savedNickname = localStorage.getItem('fire_nickname') || 'მომხმარებელი';
+            const initials = savedNickname.substring(0, 2);
+            const feed = document.getElementById('postsFeed');
+
+            const newPost = document.createElement('div');
+            newPost.className = 'post-card';
+            newPost.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">${initials}</div>
+                    <div>
+                        <div class="post-author">${savedNickname}</div>
+                        <div class="post-time">ახლახან</div>
+                    </div>
+                </div>
+                <div class="post-content">${postText}</div>
+            `;
+
+            feed.insertBefore(newPost, feed.firstChild);
+            postInput.value = "";
+        }
+    </script>
+
+</body>
+</html>
