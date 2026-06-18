@@ -318,7 +318,6 @@
     </style>
 </head>
 <body>
-
     <div class="top-navbar">
         <a href="#" class="logo">FIRE-</a>
         <div class="user-greeting" id="userGreeting">გამარჯობა!</div>
@@ -361,7 +360,7 @@
             </div>
         </div>
 
-        <div id="profilePanel" class="content-panel">
+        <div id="profilePanel" class="content-panel" style="display: none;">
             <div class="profile-card">
                 <div class="profile-main-avatar" id="profileGenderAvatar"></div>
                 <h2 id="profileNameDisplay">მომხმარებელი</h2>
@@ -393,10 +392,9 @@
 
     <script>
         let currentUser = "მომხმარებელი";
-        // ავატარების ლინკები (კაცის და ქალის ილუსტრაციები)
         const maleAvatarUrl = "https://img.icons8.com/?size=200&id=H99g99ZfG59M&format=png";
         const femaleAvatarUrl = "https://img.icons8.com/?size=200&id=70831&format=png";
-        let userAvatar = maleAvatarUrl; // სტანდარტული
+        let userAvatar = maleAvatarUrl;
 
         window.addEventListener('DOMContentLoaded', () => {
             const savedNickname = localStorage.getItem('fire_nickname');
@@ -409,14 +407,12 @@
                 document.getElementById('editNickname').value = currentUser;
             }
 
-            // ვამოწმებთ სქესს და ვსვამთ შესაბამის სურათს
             if (savedGender === "მდედრობითი") {
                 userAvatar = femaleAvatarUrl;
             } else {
                 userAvatar = maleAvatarUrl;
             }
             
-            // ვრცელდება პროფილის დიდ ავატარზე
             document.getElementById('profileGenderAvatar').style.backgroundImage = `url('${userAvatar}')`;
             
             const savedBio = localStorage.getItem('fire_bio');
@@ -425,18 +421,16 @@
             }
         });
 
-        // ჩანართების გადართვის გამართული ფუნქცია
         function switchTab(tab) {
-            document.getElementById('feedPanel').style.display = 'none';
-            document.getElementById('profilePanel').style.display = 'none';
-            document.getElementById('tabFeed').classList.remove('active');
-            document.getElementById('tabProfile').classList.remove('active');
-            
             if (tab === 'feed') {
                 document.getElementById('feedPanel').style.display = 'flex';
+                document.getElementById('profilePanel').style.display = 'none';
                 document.getElementById('tabFeed').classList.add('active');
+                document.getElementById('tabProfile').classList.remove('active');
             } else if (tab === 'profile') {
+                document.getElementById('feedPanel').style.display = 'none';
                 document.getElementById('profilePanel').style.display = 'flex';
+                document.getElementById('tabFeed').classList.remove('active');
                 document.getElementById('tabProfile').classList.add('active');
             }
         }
@@ -480,17 +474,19 @@
 
         function buildPostStructure(postElement, text, img, feedContainer) {
             postElement.innerHTML = `
-                <div class="post-header">
-                    <div class="post-avatar" style="background-image: url('${userAvatar}')"></div>
-                    <div>
-                        <div class="post-author">${currentUser}</div>
-                        <div class="post-time">ახლახან</div>
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-avatar" style="background-image: url('${userAvatar}')"></div>
+                        <div>
+                            <div class="post-author">${currentUser}</div>
+                            <div class="post-time">ახლახან</div>
+                        </div>
                     </div>
-                </div>
-                <div class="post-content">${text}</div>
-                ${img}
-                <div class="like-section">
-                    <button class="like-btn" onclick="toggleLike(this)">❤️ ლაიქი (<span class="like-count">0</span>)</button>
+                    <div class="post-content">${text}</div>
+                    ${img}
+                    <div class="like-section">
+                        <button class="like-btn" onclick="toggleLike(this)">❤️ ლაიქი (<span class="like-count">0</span>)</button>
+                    </div>
                 </div>
             `;
             feedContainer.insertBefore(postElement, feedContainer.firstChild);
