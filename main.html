@@ -51,7 +51,7 @@
             overflow: hidden;
         }
 
-        /* 1. Sidebar */
+        /* Sidebar */
         .sidebar {
             width: 250px;
             background-color: #fff;
@@ -95,7 +95,7 @@
             gap: 20px;
         }
 
-        /* 2. Feed Components */
+        /* Feed Components */
         .create-post {
             background-color: #fff;
             border-radius: 10px;
@@ -239,6 +239,14 @@
             box-sizing: border-box;
         }
 
+        /* სტილი დაბლოკილი ინპუტისთვის, რომ მომხმარებელმა მიხვდეს რომ ვერ შეცვლის */
+        .profile-card input[readonly] {
+            background-color: #f1f2f6;
+            color: #57606f;
+            cursor: not-allowed;
+            border: 1px solid #ced6e0;
+        }
+
         .profile-card button {
             background: #2ed573;
             color: white;
@@ -249,7 +257,7 @@
             cursor: pointer;
         }
 
-        /* 3. Right Sidebar (Chat Widget) */
+        /* Right Sidebar (Chat Widget) */
         .right-sidebar {
             width: 320px;
             background-color: #fff;
@@ -366,13 +374,13 @@
                 <h2 id="profileNameDisplay">მომხმარებელი</h2>
                 <p style="color: #747d8c;">ჩემი პირადი მონაცემები</p>
                 
-                <label style="text-align: left; display: block; font-weight: bold;">შეცვალე მეტსახელი:</label>
-                <input type="text" id="editNickname">
+                <label style="text-align: left; display: block; font-weight: bold;">მეტსახელი (შეცვლა შეუძლებელია):</label>
+                <input type="text" id="editNickname" readonly>
                 
                 <label style="text-align: left; display: block; font-weight: bold;">ჩემ შესახებ:</label>
                 <textarea id="editBio" placeholder="დაწერე რამე შენს შესახებ..."></textarea>
                 
-                <button onclick="saveProfile()">მონაცემების შენახვა</button>
+                <button onclick="saveProfile()">ბიოგრაფიის შენახვა</button>
             </div>
         </div>
 
@@ -393,6 +401,7 @@
     <script>
         let currentUser = "მომხმარებელი";
 
+        // გვერდის ჩატვირთვისთანავე ამოვიღებთ რეგისტრაციის სახელს
         window.addEventListener('DOMContentLoaded', () => {
             const savedNickname = localStorage.getItem('fire_nickname');
             if (savedNickname) {
@@ -443,7 +452,6 @@
             newPost.className = 'post-card';
 
             let imgHtml = "";
-            // თუ ფოტოა არჩეული, გადავიყვანოთ Base64 ფორმატში საჩვენებლად
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -455,7 +463,6 @@
                 buildPostStructure(newPost, initials, postText, imgHtml, feed);
             }
 
-            // გასუფთავება
             postInput.value = "";
             fileInput.value = "";
             document.getElementById('fileLabel').innerText = "";
@@ -493,22 +500,11 @@
             }
         }
 
-        // პროფილის შენახვა
+        // მხოლოდ ბიოგრაფიის შენახვა
         function saveProfile() {
-            const newName = document.getElementById('editNickname').value.trim();
             const newBio = document.getElementById('editBio').value.trim();
-            
-            if(newName !== "") {
-                currentUser = newName;
-                localStorage.setItem('fire_nickname', newName);
-                localStorage.setItem('fire_bio', newBio);
-                
-                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + currentUser + '!';
-                document.getElementById('profileNameDisplay').innerText = currentUser;
-                document.getElementById('profileLetter').innerText = currentUser.substring(0, 2).toUpperCase();
-                
-                alert("მონაცემები წარმატებით განახლდა! ✨");
-            }
+            localStorage.setItem('fire_bio', newBio);
+            alert("ბიოგრაფია წარმატებით განახლდა! ✨");
         }
 
         // ჩატის შეტყობინების გაგზავნა
@@ -525,7 +521,7 @@
             
             chatWindow.appendChild(newMsg);
             chatInput.value = "";
-            chatWindow.scrollTop = chatWindow.scrollHeight; // სქროლი ბოლოში
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         function handleChatEnter(e) {
