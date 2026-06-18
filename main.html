@@ -166,14 +166,9 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
             background-size: cover;
             background-position: center;
+            background-color: #e4e6eb;
         }
 
         .post-author { font-weight: bold; color: #2f3542; }
@@ -219,18 +214,14 @@
         }
 
         .profile-main-avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin: 0 auto 15px;
             background-size: cover;
             background-position: center;
-            /* წაშალეთ ძველი ფერადი ფონი და ტექსტი */
-            color: transparent;
-            font-size: 0;
+            border: 3px solid #ff4757;
+            background-color: #f1f2f6;
         }
 
         .profile-card input, .profile-card textarea {
@@ -242,7 +233,6 @@
             box-sizing: border-box;
         }
 
-        /* სტილი დაბლოკილი ინპუტისთვის, რომ მომხმარებელმა მიხვდეს რომ ვერ შეცვლის */
         .profile-card input[readonly] {
             background-color: #f1f2f6;
             color: #57606f;
@@ -337,8 +327,8 @@
     <div class="main-container">
 
         <div class="sidebar">
-            <div class="sidebar-item active" onclick="switchTab('feed', this)">🏠 ჩემი კედელი</div>
-            <div class="sidebar-item" onclick="switchTab('profile', this)">👤 ჩემი პროფილი</div>
+            <div class="sidebar-item active" id="tabFeed" onclick="switchTab('feed')">🏠 ჩემი კედელი</div>
+            <div class="sidebar-item" id="tabProfile" onclick="switchTab('profile')">👤 ჩემი პროფილი</div>
         </div>
 
         <div id="feedPanel" class="content-panel active-panel">
@@ -390,4 +380,161 @@
         <div class="right-sidebar">
             <div class="chat-header">💬 საერთო ჩათი</div>
             <div class="chat-messages" id="chatWindow">
-                <div class="msg incoming"><b>გიორგი:http://googleusercontent.com/image_generation_content/0
+                <div class="msg incoming"><b>გიორგი:</b> ჰეი, ვინმე ხართ აქ?</div>
+                <div class="msg incoming"><b>ანი:</b> კიი, ახალი კედელი ძაან მაგარია! 😍</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="დაწერე შეტყობინება..." onkeypress="handleChatEnter(event)">
+                <button onclick="sendChatMessage()">></button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentUser = "მომხმარებელი";
+        // ავატარების ლინკები (კაცის და ქალის ილუსტრაციები)
+        const maleAvatarUrl = "https://img.icons8.com/?size=200&id=H99g99ZfG59M&format=png";
+        const femaleAvatarUrl = "https://img.icons8.com/?size=200&id=70831&format=png";
+        let userAvatar = maleAvatarUrl; // სტანდარტული
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedNickname = localStorage.getItem('fire_nickname');
+            const savedGender = localStorage.getItem('fire_gender');
+            
+            if (savedNickname) {
+                currentUser = savedNickname;
+                document.getElementById('userGreeting').innerText = 'გამარჯობა, ' + currentUser + '!';
+                document.getElementById('profileNameDisplay').innerText = currentUser;
+                document.getElementById('editNickname').value = currentUser;
+            }
+
+            // ვამოწმებთ სქესს და ვსვამთ შესაბამის სურათს
+            if (savedGender === "მდედრობითი") {
+                userAvatar = femaleAvatarUrl;
+            } else {
+                userAvatar = maleAvatarUrl;
+            }
+            
+            // ვრცელდება პროფილის დიდ ავატარზე
+            document.getElementById('profileGenderAvatar').style.backgroundImage = `url('${userAvatar}')`;
+            
+            const savedBio = localStorage.getItem('fire_bio');
+            if (savedBio) {
+                document.getElementById('editBio').value = savedBio;
+            }
+        });
+
+        // ჩანართების გადართვის გამართული ფუნქცია
+        function switchTab(tab) {
+            document.getElementById('feedPanel').style.display = 'none';
+            document.getElementById('profilePanel').style.display = 'none';
+            document.getElementById('tabFeed').classList.remove('active');
+            document.getElementById('tabProfile').classList.remove('active');
+            
+            if (tab === 'feed') {
+                document.getElementById('feedPanel').style.display = 'flex';
+                document.getElementById('tabFeed').classList.add('active');
+            } else if (tab === 'profile') {
+                document.getElementById('profilePanel').style.display = 'flex';
+                document.getElementById('tabProfile').classList.add('active');
+            }
+        }
+
+        function previewFileLabel(input) {
+            if(input.files && input.files[0]) {
+                document.getElementById('fileLabel').innerText = "✓ ფოტო არჩეულია";
+            }
+        }
+
+        function addPost() {
+            const postInput = document.getElementById('postInput');
+            const postText = postInput.value.trim();
+            const fileInput = document.getElementById('postImage');
+            
+            if (postText === "" && !fileInput.files[0]) {
+                alert("გთხოვთ ჩაწეროთ ტექსტი ან ატვირთოთ ფოტო!");
+                return;
+            }
+
+            const feed = document.getElementById('postsFeed');
+            const newPost = document.createElement('div');
+            newPost.className = 'post-card';
+
+            let imgHtml = "";
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imgHtml = `<img src="${e.target.result}" class="post-img">`;
+                    buildPostStructure(newPost, postText, imgHtml, feed);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                buildPostStructure(newPost, postText, imgHtml, feed);
+            }
+
+            postInput.value = "";
+            fileInput.value = "";
+            document.getElementById('fileLabel').innerText = "";
+        }
+
+        function buildPostStructure(postElement, text, img, feedContainer) {
+            postElement.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar" style="background-image: url('${userAvatar}')"></div>
+                    <div>
+                        <div class="post-author">${currentUser}</div>
+                        <div class="post-time">ახლახან</div>
+                    </div>
+                </div>
+                <div class="post-content">${text}</div>
+                ${img}
+                <div class="like-section">
+                    <button class="like-btn" onclick="toggleLike(this)">❤️ ლაიქი (<span class="like-count">0</span>)</button>
+                </div>
+            `;
+            feedContainer.insertBefore(postElement, feedContainer.firstChild);
+        }
+
+        function toggleLike(btn) {
+            const countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            
+            if(btn.classList.contains('liked')) {
+                btn.classList.remove('liked');
+                countSpan.innerText = count - 1;
+            } else {
+                btn.classList.add('liked');
+                countSpan.innerText = count + 1;
+            }
+        }
+
+        function saveProfile() {
+            const newBio = document.getElementById('editBio').value.trim();
+            localStorage.setItem('fire_bio', newBio);
+            alert("ბიოგრაფია წარმატებით განახლდა! ✨");
+        }
+
+        function sendChatMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const msgText = chatInput.value.trim();
+            if(msgText === "") return;
+            
+            const chatWindow = document.getElementById('chatWindow');
+            const newMsg = document.createElement('div');
+            newMsg.className = 'msg outgoing';
+            newMsg.innerHTML = `<b>მე:</b> ${msgText}`;
+            
+            chatWindow.appendChild(newMsg);
+            chatInput.value = "";
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function handleChatEnter(e) {
+            if(e.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+    </script>
+</body>
+</html>
