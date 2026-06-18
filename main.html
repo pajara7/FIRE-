@@ -529,18 +529,21 @@
                 sendChatMessage();
             }
         }
-        window.addEventListener('DOMContentLoaded', () => {
-            const gender = localStorage.getItem('fire_gender');
-            const avatar = document.getElementById('profileGenderAvatar');
-
-            if (avatar) {
-                if (gender === "მამრობითი") {
-                    avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix&grayscale=true')";
-                } else {
-                    avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
-                }
+        // ავატარის სისტემა
+    window.addEventListener('DOMContentLoaded', () => {
+        const gender = localStorage.getItem('fire_gender');
+        const avatar = document.getElementById('profileGenderAvatar');
+        
+        if (avatar) {
+            // თუ სქესი შეიცავს სიტყვას "მამრობითი", დააყენე ნაცრისფერი კაცი
+            if (gender && gender.includes('მამრობითი')) {
+                avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Felix&grayscale=true')";
+            } else {
+                // წინააღმდეგ შემთხვევაში დააყენე ქალის ავატარი
+                avatar.style.backgroundImage = "url('https://api.dicebear.com/7.x/adventurer/svg?seed=Ane')";
             }
-        });
-    </script>
+        }
+    });
+</script>
 </body>
 </html>
